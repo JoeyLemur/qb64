@@ -245,6 +245,8 @@ int32 acceptFileDrop=0;
     HWND window_handle=NULL;
     HDROP hdrop=NULL;
     int32 totalDroppedFiles=0;
+    
+    int32 custom_windows_event=0;
 #endif
 //...
 
@@ -337,6 +339,7 @@ extern "C" int qb64_custom_event(int event,int v1,int v2,int v3,int v4,int v5,in
 #define QB64_EVENT_KEY 2
 #define QB64_EVENT_RELATIVE_MOUSE_MOVEMENT 3
 #define QB64_EVENT_FILE_DROP 4
+#define QB64_OTHER_WINDOWS_EVENT 5
 #define QB64_EVENT_KEY_PAUSE 1000
 
 static int32 image_qbicon16_handle;
@@ -26748,6 +26751,14 @@ int32 func__totaldroppedfiles() {
     return 0;
 }
 
+int32 func__windowsevent() {
+    #ifdef QB64_WINDOWS
+        return custom_windows_event;
+        custom_windows_event=0;
+    #endif
+    return 0;
+}
+
 qbs *func__droppedfile(int32 fileIndex, int32 passed) {
     #ifdef QB64_WINDOWS
         static int32 index=-1;
@@ -29658,6 +29669,13 @@ extern "C" int qb64_custom_event(int event,int v1,int v2,int v3,int v4,int v5,in
 
             hdrop=(HDROP)p1;
             totalDroppedFiles = DragQueryFile ( hdrop, -1, NULL, 0 );
+        #endif
+        return NULL;
+    }
+    
+    if (event==QB64_OTHER_WINDOWS_EVENT) {
+        #ifdef QB64_WINDOWS
+            custom_windows_event = (int32)v1;
         #endif
         return NULL;
     }

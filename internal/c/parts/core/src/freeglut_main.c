@@ -54,6 +54,7 @@ int qb64_custom_event(int event,int v1,int v2,int v3,int v4,int v5,int v6,int v7
 #define QB64_EVENT_KEY 2
 #define QB64_EVENT_RELATIVE_MOUSE_MOVEMENT 3
 #define QB64_EVENT_FILE_DROP 4
+#define QB64_OTHER_WINDOWS_EVENT 5
 
 #define QBK 200000
 #define VK 100000
@@ -2914,6 +2915,9 @@ if (wParam==VK_CANCEL){
 #endif
     default:
         /* Handle unhandled messages */
+        // lRet = DefWindowProc( hWnd, uMsg, wParam, lParam );
+        // break;
+        qb64_custom_event(QB64_OTHER_WINDOWS_EVENT,uMsg,0,0,0,0,0,0,0,NULL,NULL);
         lRet = DefWindowProc( hWnd, uMsg, wParam, lParam );
         break;
     }

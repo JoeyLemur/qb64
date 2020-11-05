@@ -898,6 +898,13 @@ id.ret = LONGTYPE - ISPOINTER
 regid
 
 clearid
+id.n = qb64prefix$ + "WINDOWSEVENT"
+id.subfunc = 1
+id.callname = "func__windowsevent"
+id.ret = LONGTYPE - ISPOINTER
+regid
+
+clearid
 id.n = qb64prefix$ + "DROPPEDFILE"
 id.mayhave = "$"
 id.subfunc = 1

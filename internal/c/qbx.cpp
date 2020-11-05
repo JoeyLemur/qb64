@@ -123,6 +123,7 @@ extern void sub__finishdrop();
 extern int32 func__filedrop();
 extern void sub__filedrop(int32 on_off=NULL);
 extern int32 func__totaldroppedfiles();
+extern int32 func__windowsevent();
 extern qbs *func__droppedfile(int32 fileIndex, int32 passed);
 
 extern void sub__glrender(int32 method);
